@@ -5,17 +5,14 @@ import pandas as pd
 import click
 from datetime import datetime
 
-from entities.train_pipeline_params import (
-    TrainingPipelineParams,
+from src.scheduler.preprocess.entities.train_pipeline_params import (
+    TrainPipelineParams,
     read_training_pipeline_params,
 )
 
-from features.build_transformer import (
-    build_ctr_transformer,
-    build_transformer,
-    extract_target,
-    process_count_features,
-)
+from features.build_transformer import (features_and_targets_transformer)
+from features.build_sku_by_day import save_sku_demand_by_day, sku_demand_by_day
+from features.build_transformer import (features_and_targets_transformer,save_transformed_data)
 
 logger = logging.getLogger(__name__)
 handler = logging.StreamHandler(sys.stdout)
@@ -32,36 +29,29 @@ def preprocess(input_dir: str, output_dir: str, config: str):
     logger.info(f"output_dir: {output_dir}")
     logger.info(f"config: {config}")
 
-    os.makedirs(output_dir, exist_ok=True)
+    params = read_training_pipeline_params(config)
+    logger.info(f"params: {params}")
+    demand_orders = pd.read_csv(params.input_demand_orders)
+    demand_orders_status = pd.read_csv(params.input_demand_orders_status)
+    # Make sku_demand_by_day
+    logger.info("Start training...")
+    logger.info("Make sku demand day...")
+    sku_demand_day = sku_demand_by_day(demand_orders, demand_orders_status)
+    # Save sku_demand_by_day
+    logger.info("Saving sku demand day...")
+    save_sku_demand_by_day(params.output_sku_demand_day, sku_demand_day)
+    logger.info("Sku demand day received successfully!")
 
-    training_pipeline_params: TrainingPipelineParams = read_training_pipeline_params(
-        config
-    )
-
-    data = pd.read_csv(os.path.join(input_dir, "sampled_train_50k.csv"))
-    data["hour"] = data.hour.apply(lambda val: datetime.strptime(str(val), "%y%m%d%H"))
-
-    transformer = build_transformer()
-    processed_data = process_count_features(
-        transformer, data, training_pipeline_params.feature_params
-    )
-
-    logger.info(
-        f"processed_data:  {processed_data.shape} \n {processed_data.info()} "
-        f"\n {processed_data.nunique()} \n {processed_data[training_pipeline_params.feature_params.count_features]}"
-    )
-
-    ctr_transformer = build_ctr_transformer(training_pipeline_params.feature_params)
-    ctr_transformer.fit(processed_data)
-
-    features = ctr_transformer.transform(processed_data)
-    target = pd.DataFrame(
-        extract_target(processed_data, training_pipeline_params.feature_params),
-        columns=["click"],
-    )
-
-    data = pd.concat([features, target], axis=1)
-    data.to_csv(os.path.join(output_dir, "processed.csv"), index=False)
+    # Make features and targets transformer
+    logger.info("Make transformer...")
+    transformer = features_and_targets_transformer()
+    # Transform data
+    logger.info("Transforming data...")
+    transformed_data = transformer.fit_transform(sku_demand_day)
+    logger.info("Complete!")
+    # Save transformed data
+    logger.info("Saving transformed data...")
+    save_transformed_data(params.output_features_and_targets, transformed_data)
 
 
 if __name__ == "__main__":

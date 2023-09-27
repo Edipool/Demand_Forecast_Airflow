@@ -5,9 +5,9 @@ from dataclasses import dataclass, field
 import yaml
 from marshmallow_dataclass import class_schema
 
-from feature_params import FeatureParams
-from model_params import ModelParams
-from split_params import SplitParams
+from src.scheduler.preprocess.entities.feature_params import FeatureParams
+from src.scheduler.preprocess.entities.model_params import ModelParams
+from src.scheduler.preprocess.entities.split_params import SplitParams
 
 logger = logging.getLogger(__name__)
 handler = logging.StreamHandler(sys.stdout)

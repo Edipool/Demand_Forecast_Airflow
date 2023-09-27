@@ -4,11 +4,11 @@ import sys
 import pandas as pd
 from sklearn.pipeline import Pipeline
 
-from src.entities.train_pipeline_params import read_training_pipeline_params
-from src.features.AddFeatures import AddFeatures
-from src.features.AddTargets import AddTargets
+from src.scheduler.preprocess.entities.train_pipeline_params import read_training_pipeline_params
+from src.scheduler.preprocess.features.AddFeatures import AddFeatures
+from src.scheduler.preprocess.features.AddTargets import AddTargets
 
-PATH = "configs/train_config.yaml"
+PATH = "src/scheduler/preprocess/configs/train_config.yaml"
 params = read_training_pipeline_params(PATH)
 logger = logging.getLogger(__name__)
 handler = logging.StreamHandler(sys.stdout)
