@@ -5,7 +5,7 @@ import pandas as pd
 import click
 from datetime import datetime
 
-from src.scheduler.preprocess.entities.train_pipeline_params import (
+from entities.train_pipeline_params import (
     TrainPipelineParams,
     read_training_pipeline_params,
 )

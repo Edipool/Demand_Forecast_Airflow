@@ -5,16 +5,16 @@ from dataclasses import dataclass, field
 import yaml
 from marshmallow_dataclass import class_schema
 
-from src.scheduler.preprocess.entities.feature_params import FeatureParams
-from src.scheduler.preprocess.entities.model_params import ModelParams
-from src.scheduler.preprocess.entities.split_params import SplitParams
+from entities.feature_params import FeatureParams
+from entities.model_params import ModelParams
+from entities.split_params import SplitParams
 
 logger = logging.getLogger(__name__)
 handler = logging.StreamHandler(sys.stdout)
 logger.setLevel(logging.INFO)
 logger.addHandler(handler)
 
-PATH = "src/scheduler/preprocess/configs/train_config.yaml"
+PATH = "../configs/train_config.yaml"
 
 
 @dataclass()
@@ -24,17 +24,17 @@ class TrainPipelineParams:
     model_params: ModelParams
     input_demand_orders: str = field(default="data/raw/demand_orders.csv")
     input_demand_orders_status: str = field(
-        default="data/raw/demand_orders_status.csv"
+        default="../data/raw/demand_orders_status.csv"
     )
-    output_sku_demand_day: str = field(default="data/processed/sales.csv")
+    output_sku_demand_day: str = field(default="../data/processed/sales.csv")
     output_features_and_targets: str = field(
-        default="data/processed/features_targets.csv"
+        default="../data/processed/features_targets.csv"
     )
-    output_losses: str = field(default="models/losses.json")
-    output_model: str = field(default="models/model.pkl")
-    input_sales: str = field(default="data/raw/sales.csv")
-    input_features: str = field(default="data/raw/features.csv")
-    output_predictions: str = field(default="data/processed/predictions.csv")
+    output_losses: str = field(default="../models/losses.json")
+    output_model: str = field(default="../models/model.pkl")
+    input_sales: str = field(default="../data/raw/sales.csv")
+    input_features: str = field(default="../data/raw/features.csv")
+    output_predictions: str = field(default="../data/processed/predictions.csv")
 
 
 TrainingPipelineParamsSchema = class_schema(TrainPipelineParams)
@@ -46,7 +46,3 @@ def read_training_pipeline_params(path: str) -> TrainPipelineParams:
         schema = TrainingPipelineParamsSchema().load(config_dict)
         logger.info("Check schema: %s", schema)
         return schema
-
-
-if __name__ == "__main__":
-    read_training_pipeline_params(PATH)
