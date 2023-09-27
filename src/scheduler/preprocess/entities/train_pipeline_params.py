@@ -6,7 +6,6 @@ import yaml
 from marshmallow_dataclass import class_schema
 
 from entities.feature_params import FeatureParams
-from entities.model_params import ModelParams
 from entities.split_params import SplitParams
 
 logger = logging.getLogger(__name__)
@@ -21,8 +20,7 @@ PATH = "../configs/train_config.yaml"
 class TrainPipelineParams:
     feature_params: FeatureParams
     split_params: SplitParams
-    model_params: ModelParams
-    input_demand_orders: str = field(default="data/raw/demand_orders.csv")
+    input_demand_orders: str = field(default="../data/raw/demand_orders.csv")
     input_demand_orders_status: str = field(
         default="../data/raw/demand_orders_status.csv"
     )
