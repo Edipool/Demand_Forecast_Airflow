@@ -29,17 +29,23 @@ def preprocess(input_dir: str, output_dir: str, config: str):
     logger.info(f"output_dir: {output_dir}")
     logger.info(f"config: {config}")
 
-    params = read_training_pipeline_params(config)
-    logger.info(f"params: {params}")
-    demand_orders = pd.read_csv(params.input_demand_orders)
-    demand_orders_status = pd.read_csv(params.input_demand_orders_status)
+    os.makedirs(output_dir, exist_ok=True)
+
+    training_pipeline_params: TrainPipelineParams = read_training_pipeline_params(
+        config
+    )
+    logger.info(f"params: {training_pipeline_params}")
+    demand_orders = pd.read_csv(os.path.join(input_dir, "demand_orders.csv"))
+    demand_orders_status = pd.read_csv(os.path.join(input_dir, "demand_orders_status.csv"))
+    # demand_orders = pd.read_csv(training_pipeline_params.input_demand_orders)
+    # demand_orders_status = pd.read_csv(training_pipeline_params.input_demand_orders_status)
     # Make sku_demand_by_day
     logger.info("Start training...")
     logger.info("Make sku demand day...")
     sku_demand_day = sku_demand_by_day(demand_orders, demand_orders_status)
     # Save sku_demand_by_day
     logger.info("Saving sku demand day...")
-    save_sku_demand_by_day(params.output_sku_demand_day, sku_demand_day)
+    save_sku_demand_by_day(training_pipeline_params.output_sku_demand_day, sku_demand_day)
     logger.info("Sku demand day received successfully!")
 
     # Make features and targets transformer
@@ -51,8 +57,8 @@ def preprocess(input_dir: str, output_dir: str, config: str):
     logger.info("Complete!")
     # Save transformed data
     logger.info("Saving transformed data...")
-    save_transformed_data(params.output_features_and_targets, transformed_data)
+    save_transformed_data(training_pipeline_params.output_features_and_targets, transformed_data)
 
 
-# if __name__ == "__main__":
-#     preprocess()
+if __name__ == "__main__":
+    preprocess()
