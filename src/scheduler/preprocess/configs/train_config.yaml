@@ -35,22 +35,3 @@ feature_params:
     qty_21d_q90: ["qty", 21, "quantile", 90]
 split_params:
   test_days: 30
-model_params:
-  features:
-    ["price",
-    "qty",
-    "qty_7d_avg",
-    "qty_7d_q10",
-    "qty_7d_q50",
-    "qty_7d_q90",
-    "qty_14d_avg",
-    "qty_14d_q10",
-    "qty_14d_q50",
-    "qty_14d_q90",
-    "qty_21d_avg",
-    "qty_21d_q10",
-    "qty_21d_q50",
-    "qty_21d_q90",
-    ]
-  horizons: [7, 14, 21]
-  quantiles: [0.1, 0.5, 0.9]

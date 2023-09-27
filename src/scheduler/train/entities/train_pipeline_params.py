@@ -37,3 +37,4 @@ def read_training_pipeline_params(path: str) -> TrainingPipelineParams:
         schema = TrainingPipelineParamsSchema().load(config_dict)
         logger.info("Check schema: %s", schema)
         return schema
+

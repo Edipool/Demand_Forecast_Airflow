@@ -54,5 +54,5 @@ def preprocess(input_dir: str, output_dir: str, config: str):
     save_transformed_data(params.output_features_and_targets, transformed_data)
 
 
-if __name__ == "__main__":
-    preprocess()
+# if __name__ == "__main__":
+#     preprocess()
