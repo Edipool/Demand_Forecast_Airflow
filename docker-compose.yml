@@ -80,24 +80,33 @@ services:
       context: src/scheduler/download
     image: download
     restart: "no"
+    volumes:
+      - data/raw:/data/raw
 
   preprocess:
     build:
       context: src/scheduler/preprocess
     image: preprocess
     restart: "no"
+    volumes:
+        - data/processed:/data/processed
 
   split:
     build:
       context: src/scheduler/split
     image: split
     restart: "no"
+    volumes:
+        - ../data/processed:../data/processed
 
   train:
     build:
       context: src/scheduler/train
     image: train
     restart: "no"
+    volumes:
+        - ../data/processed:../data/processed
+        - ../models:/models
 
 volumes:
   logs:

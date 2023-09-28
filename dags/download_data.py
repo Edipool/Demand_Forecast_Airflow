@@ -9,13 +9,13 @@ from docker.types import Mount
 
 with DAG(
     dag_id="airflow_download_data_from_s3",
-    start_date=airflow.utils.dates.days_ago(5),
+    start_date=airflow.utils.dates.days_ago(1),
     schedule_interval="@daily",
 ) as dag:
 
     get_data = DockerOperator(
         image="download",
-        command="--s3-bucket sem5-airflow --remote-path remote_tests/{{ ds }} --output-path data/raw/{{ ds }}",
+        command="--s3-bucket sem5-airflow --remote-path regsys/{{ ds }} --output-path data/raw/{{ ds }}",
         task_id="download",
         do_xcom_push=False,
         mounts=[
