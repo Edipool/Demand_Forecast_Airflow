@@ -19,13 +19,10 @@ PATH = "../configs/train_config.yaml"
 
 @dataclass()
 class TrainingPipelineParams:
-    output_model_path: str
-    metric_path: str
-    train_params: ModelParams
-    input_data_path: str = field(default="../data/raw/demand_orders.csv")
-    input_preprocessed_data_path: str = field(
-        default="../data/raw/demand_orders_status.csv"
-    )
+    model_params: ModelParams
+    output_predictions: str= field(default="data/predictions/predictions.csv")
+    output_losses: str= field(default="models/losses.json")
+    output_model: str= field(default="models/model.pkl")
 
 
 TrainingPipelineParamsSchema = class_schema(TrainingPipelineParams)
@@ -37,4 +34,3 @@ def read_training_pipeline_params(path: str) -> TrainingPipelineParams:
         schema = TrainingPipelineParamsSchema().load(config_dict)
         logger.info("Check schema: %s", schema)
         return schema
-
