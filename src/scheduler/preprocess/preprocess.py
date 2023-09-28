@@ -37,8 +37,6 @@ def preprocess(input_dir: str, output_dir: str, config: str):
     logger.info(f"params: {training_pipeline_params}")
     demand_orders = pd.read_csv(os.path.join(input_dir, "demand_orders.csv"))
     demand_orders_status = pd.read_csv(os.path.join(input_dir, "demand_orders_status.csv"))
-    # demand_orders = pd.read_csv(training_pipeline_params.input_demand_orders)
-    # demand_orders_status = pd.read_csv(training_pipeline_params.input_demand_orders_status)
     # Make sku_demand_by_day
     logger.info("Start training...")
     logger.info("Make sku demand day...")
