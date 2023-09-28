@@ -3,7 +3,7 @@ version: '3.7'
 x-environment: &airflow_environment
   - AIRFLOW__CORE__EXECUTOR=LocalExecutor
   - AIRFLOW__CORE__LOAD_DEFAULT_CONNECTIONS=False
-  - AIRFLOW__CORE__LOAD_EXAMPLES=True
+  - AIRFLOW__CORE__LOAD_EXAMPLES=False
   - AIRFLOW__CORE__SQL_ALCHEMY_CONN=postgresql://airflow:airflow@postgres:5432/airflow
   - AIRFLOW__CORE__STORE_DAG_CODE=True
   - AIRFLOW__CORE__STORE_SERIALIZED_DAGS=True
@@ -81,32 +81,32 @@ services:
     image: download
     restart: "no"
     volumes:
-      - data/raw:/data/raw
+      - data-volume:/src/scheduler/download/data/raw
 
-  preprocess:
-    build:
-      context: src/scheduler/preprocess
-    image: preprocess
-    restart: "no"
-    volumes:
-        - data/processed:/data/processed
+  # preprocess:
+  #   build:
+  #     context: src/scheduler/preprocess
+  #   image: preprocess
+  #   restart: "no"
+  #   volumes:
+  #     - data-volume:/src/scheduler/preprocess/data/processed
 
-  split:
-    build:
-      context: src/scheduler/split
-    image: split
-    restart: "no"
-    volumes:
-        - ../data/processed:../data/processed
+  # split:
+  #   build:
+  #     context: src/scheduler/split
+  #   image: split
+  #   restart: "no"
+  #   volumes:
+  #     - data-volume:/src/scheduler/preprocess/data/processed
 
-  train:
-    build:
-      context: src/scheduler/train
-    image: train
-    restart: "no"
-    volumes:
-        - ../data/processed:../data/processed
-        - ../models:/models
+  # train:
+  #   build:
+  #     context: src/scheduler/train
+  #   image: train
+  #   restart: "no"
+  #   volumes:
+  #     - data-volume:/src/scheduler/train/data/predictions
 
 volumes:
   logs:
+  data-volume:

@@ -15,7 +15,7 @@ with DAG(
 
     get_data = DockerOperator(
         image="download",
-        command="--s3-bucket sem5-airflow --remote-path regsys/{{ ds }} --output-path data/raw/{{ ds }}",
+        command="--s3-bucket regsys --remote-path 2023-09-27 --output-path data/raw",
         task_id="download",
         do_xcom_push=False,
         mounts=[
