@@ -86,7 +86,7 @@ services:
       - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
     restart: "no"
     volumes:
-      - data-volume:/src/scheduler/download/data/raw
+      - data-raw:/src/scheduler/download/data/raw
 
   preprocess:
     build:
@@ -94,7 +94,7 @@ services:
     image: preprocess
     restart: "no"
     volumes:
-      - data-volume:/src/scheduler/preprocess/data/processed
+      - data-processed:/src/scheduler/preprocess/data/processed
 
   split:
     build:
@@ -102,7 +102,7 @@ services:
     image: split
     restart: "no"
     volumes:
-      - data-volume:/src/scheduler/preprocess/data/processed
+      - data-processed:/src/scheduler/preprocess/data/processed
 
   train:
     build:
@@ -110,8 +110,10 @@ services:
     image: train
     restart: "no"
     volumes:
-      - data-volume:/src/scheduler/train/data/predictions
+      - data-predictions:/src/scheduler/train/data/predictions
 
 volumes:
   logs:
-  data-volume:
+  data-raw:
+  data-processed:
+  data-predictions:
