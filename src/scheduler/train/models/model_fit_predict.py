@@ -235,4 +235,3 @@ def serialize_model(model, output: str) -> None:
         joblib.dump(model, file)
         logger.info(f"Model saved to {output}")
         return output
-

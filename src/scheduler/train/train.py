@@ -47,7 +47,7 @@ def train(input_dir: str, output_dir: str, config: str):
     logger.info("Finish training model")
     # Save losses in dump .json
     path_losses = os.path.join(output_dir, "losses.json")
-    with open(path_losses , "w") as file:
+    with open(path_losses, "w") as file:
         json.dump(losses, file)
         logger.info("Losses saved successfully!")
     # Serialize model
