@@ -112,6 +112,17 @@ services:
     volumes:
       - data-predictions:/src/scheduler/train/data/predictions
 
+  upload:
+    build:
+      context: src/scheduler/upload
+    image: upload
+    restart: "no"
+    environment:
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+    volumes:
+      - data-predictions:/src/scheduler/upload/data/predictions
+
 volumes:
   logs:
   data-raw:
