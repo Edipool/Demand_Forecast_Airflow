@@ -38,19 +38,22 @@ def train(input_dir: str, output_dir: str, config: str):
     predictions = model.predict(dftest)
     # Save predictions to .csv
     logger.info("Saving predictions...")
-    predictions.to_csv(training_pipeline_params.output_predictions, index=False)
+    path_predictions = os.path.join(output_dir, "predictions.csv")
+    predictions.to_csv(path_predictions, index=False)
     # Evaluate model
     logger.info("Evaluating model...")
     losses = evaluate_model(dftest, predictions)
     logger.info(f"Losses is {losses}")
     logger.info("Finish training model")
     # Save losses in dump .json
-    with open(training_pipeline_params.output_losses, "w") as file:
+    path_losses = os.path.join(output_dir, "losses.json")
+    with open(path_losses , "w") as file:
         json.dump(losses, file)
         logger.info("Losses saved successfully!")
     # Serialize model
     logger.info("Saving model...")
-    serialize_model(model, training_pipeline_params.output_model)
+    path_model = os.path.join(output_dir, "model.pkl")
+    serialize_model(model, path_model)
     logger.info("Model saved successfully!")
 
 

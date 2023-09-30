@@ -42,9 +42,9 @@ def preprocess(input_dir: str, output_dir: str, config: str):
     sku_demand_day = sku_demand_by_day(demand_orders, demand_orders_status)
     # Save sku_demand_by_day
     logger.info("Saving sku demand day...")
-    save_sku_demand_by_day(
-        training_pipeline_params.output_sku_demand_day, sku_demand_day
-    )
+    save_sku_demand_by_day_path = os.path.join(
+        output_dir, f"sku_demand_day.csv")
+    save_sku_demand_by_day(save_sku_demand_by_day_path, sku_demand_day)
     logger.info("Sku demand day received successfully!")
 
     # Make features and targets transformer
@@ -56,9 +56,11 @@ def preprocess(input_dir: str, output_dir: str, config: str):
     logger.info("Complete!")
     # Save transformed data
     logger.info("Saving transformed data...")
-    save_transformed_data(
-        training_pipeline_params.output_features_and_targets, transformed_data
+    save_transformed_data_path = os.path.join(
+        output_dir, "features_targets.csv"
     )
+    print(f"save_path: {save_transformed_data_path}")
+    save_transformed_data(save_transformed_data_path, transformed_data)
 
 
 if __name__ == "__main__":

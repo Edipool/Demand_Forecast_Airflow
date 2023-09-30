@@ -19,7 +19,7 @@ with DAG(
 
     get_data = DockerOperator(
         image="download",
-        command="--s3-bucket regsys --remote-path 2023-09-27 --output-path data/raw",
+        command="--s3-bucket regsys --remote-path {{ ds }}  --output-path data/raw/{{ ds }}",
         task_id="download",
         do_xcom_push=False,
         environment={

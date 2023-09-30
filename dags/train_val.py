@@ -16,19 +16,19 @@ with DAG(
         task_id="wait-for-data",
         poke_interval=5,
         retries=5,
-        filepath="data/raw/demand_orders.csv",
+        filepath="data/raw/{{ ds }}",
     )
 
     wait_for_another_table = FileSensor(
         task_id="wait-for-another-table",
         poke_interval=5,
         retries=5,
-        filepath="data/raw/demand_orders_status.csv",
+        filepath="data/raw/{{ ds }}",
     )
 
     preprocess = DockerOperator(
         image="preprocess",
-        command="--input-dir data/raw --output-dir data/processed --config configs/train_config.yaml",
+        command="--input-dir data/raw/{{ ds }} --output-dir data/processed/{{ ds }} --config configs/train_config.yaml",
         task_id="preprocess",
         do_xcom_push=False,
         mounts=[
@@ -42,7 +42,7 @@ with DAG(
 
     split = DockerOperator(
         image="split",
-        command="--input-dir data/processed --output-dir data/processed --test_days 30",
+        command="--input-dir data/processed/{{ ds }}  --output-dir data/processed/{{ ds }}  --test_days 30",
         task_id="split",
         do_xcom_push=False,
         mounts=[
@@ -56,7 +56,7 @@ with DAG(
 
     train = DockerOperator(
         image="train",
-        command="--input-dir data/processed --output-dir data/predictions --config configs/train_config.yaml",
+        command="--input-dir data/processed/{{ ds }}  --output-dir data/predictions/{{ ds }}  --config configs/train_config.yaml",
         task_id="train",
         do_xcom_push=False,
         mounts=[
