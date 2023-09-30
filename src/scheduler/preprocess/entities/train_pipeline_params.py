@@ -3,10 +3,9 @@ import sys
 from dataclasses import dataclass, field
 
 import yaml
-from marshmallow_dataclass import class_schema
-
 from entities.feature_params import FeatureParams
 from entities.split_params import SplitParams
+from marshmallow_dataclass import class_schema
 
 logger = logging.getLogger(__name__)
 handler = logging.StreamHandler(sys.stdout)

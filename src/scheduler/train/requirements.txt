@@ -5,3 +5,4 @@ click
 PyYAML==6.0
 marshmallow-dataclass==8.5.8
 marshmallow==3.17.0
+tqdm==4.65.0

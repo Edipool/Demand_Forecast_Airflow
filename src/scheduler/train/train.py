@@ -1,19 +1,14 @@
 import json
-import os
 import logging
+import os
 import sys
-import pandas as pd
-import click
 
-from entities.train_pipeline_params import (
-    TrainingPipelineParams,
-    read_training_pipeline_params,
-)
-from models.model_fit_predict import (
-    MultiTargetModel,
-    evaluate_model,
-    serialize_model,
-)
+import click
+import pandas as pd
+from entities.train_pipeline_params import (TrainingPipelineParams,
+                                            read_training_pipeline_params)
+from models.model_fit_predict import (MultiTargetModel, evaluate_model,
+                                      serialize_model)
 
 logger = logging.getLogger(__name__)
 handler = logging.StreamHandler(sys.stdout)
@@ -56,6 +51,7 @@ def train(input_dir: str, output_dir: str, config: str):
     logger.info("Saving model...")
     serialize_model(model, training_pipeline_params.output_model)
     logger.info("Model saved successfully!")
+
 
 if __name__ == "__main__":
     train()

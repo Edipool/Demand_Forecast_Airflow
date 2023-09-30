@@ -1,6 +1,7 @@
-import os
 import logging
+import os
 import sys
+
 import click
 from make_dataset.make_dataset import read_data, split_train_test
 

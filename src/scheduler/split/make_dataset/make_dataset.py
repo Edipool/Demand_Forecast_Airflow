@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 from typing import Tuple
+
 import pandas as pd
 
 
 def read_data(path: str) -> pd.DataFrame:
     return pd.read_csv(path)
+
 
 def split_train_test(
     df: pd.DataFrame, test_days: int = 30,

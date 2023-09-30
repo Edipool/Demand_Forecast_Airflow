@@ -1,12 +1,10 @@
-import yaml
 import logging
 import sys
-
 from dataclasses import dataclass, field
-from marshmallow_dataclass import class_schema
 
+import yaml
 from entities.train_params import ModelParams
-
+from marshmallow_dataclass import class_schema
 
 logger = logging.getLogger(__name__)
 handler = logging.StreamHandler(sys.stdout)
@@ -20,9 +18,9 @@ PATH = "../configs/train_config.yaml"
 @dataclass()
 class TrainingPipelineParams:
     model_params: ModelParams
-    output_predictions: str= field(default="data/predictions/predictions.csv")
-    output_losses: str= field(default="models/losses.json")
-    output_model: str= field(default="models/model.pkl")
+    output_predictions: str = field(default="data/predictions/predictions.csv")
+    output_losses: str = field(default="models/losses.json")
+    output_model: str = field(default="models/model.pkl")
 
 
 TrainingPipelineParamsSchema = class_schema(TrainingPipelineParams)

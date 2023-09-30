@@ -1,5 +1,4 @@
 import pandas as pd
-
 from entities.train_pipeline_params import read_training_pipeline_params
 
 
@@ -49,7 +48,9 @@ def save_sku_demand_by_day(path: str, data: pd.DataFrame):
 
 
 if __name__ == "__main__":
-    params = read_training_pipeline_params("src/scheduler/preprocess/configs/train_config.yaml")
+    params = read_training_pipeline_params(
+        "src/scheduler/preprocess/configs/train_config.yaml"
+    )
     demand_orders = pd.read_csv(params.input_demand_orders)
     demand_orders_status = pd.read_csv(params.input_demand_orders_status)
     sku_demand_day = sku_demand_by_day(demand_orders, demand_orders_status)

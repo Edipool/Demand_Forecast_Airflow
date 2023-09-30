@@ -10,6 +10,8 @@ x-environment: &airflow_environment
   - AIRFLOW__WEBSERVER__EXPOSE_CONFIG=True
   # custom vars
   - DATA_VOLUME_PATH=/home/user/Документы/Demand_Forecast_Airflow/
+  - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}  # Add your AWS key
+  - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}  # Add your AWS secret
 
 x-airflow-image: &airflow_image apache/airflow:2.3.0-python3.8
 # ====================================== /AIRFLOW ENVIRONMENT VARIABLES ======================================
@@ -79,33 +81,36 @@ services:
     build:
       context: src/scheduler/download
     image: download
+    environment:
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
     restart: "no"
     volumes:
       - data-volume:/src/scheduler/download/data/raw
 
-  # preprocess:
-  #   build:
-  #     context: src/scheduler/preprocess
-  #   image: preprocess
-  #   restart: "no"
-  #   volumes:
-  #     - data-volume:/src/scheduler/preprocess/data/processed
+  preprocess:
+    build:
+      context: src/scheduler/preprocess
+    image: preprocess
+    restart: "no"
+    volumes:
+      - data-volume:/src/scheduler/preprocess/data/processed
 
-  # split:
-  #   build:
-  #     context: src/scheduler/split
-  #   image: split
-  #   restart: "no"
-  #   volumes:
-  #     - data-volume:/src/scheduler/preprocess/data/processed
+  split:
+    build:
+      context: src/scheduler/split
+    image: split
+    restart: "no"
+    volumes:
+      - data-volume:/src/scheduler/preprocess/data/processed
 
-  # train:
-  #   build:
-  #     context: src/scheduler/train
-  #   image: train
-  #   restart: "no"
-  #   volumes:
-  #     - data-volume:/src/scheduler/train/data/predictions
+  train:
+    build:
+      context: src/scheduler/train
+    image: train
+    restart: "no"
+    volumes:
+      - data-volume:/src/scheduler/train/data/predictions
 
 volumes:
   logs:

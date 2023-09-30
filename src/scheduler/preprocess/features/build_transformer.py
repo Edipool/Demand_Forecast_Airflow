@@ -2,11 +2,10 @@ import logging
 import sys
 
 import pandas as pd
-from sklearn.pipeline import Pipeline
-
 from entities.train_pipeline_params import read_training_pipeline_params
 from features.AddFeatures import AddFeatures
 from features.AddTargets import AddTargets
+from sklearn.pipeline import Pipeline
 
 PATH = "./configs/train_config.yaml"
 params = read_training_pipeline_params(PATH)

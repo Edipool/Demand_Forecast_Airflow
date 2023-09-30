@@ -5,10 +5,9 @@ from typing import List
 import joblib
 import numpy as np
 import pandas as pd
+from entities.train_pipeline_params import read_training_pipeline_params
 from sklearn.linear_model import QuantileRegressor
 from tqdm import tqdm
-
-from entities.train_pipeline_params import read_training_pipeline_params
 
 PATH = "configs/train_config.yaml"
 params = read_training_pipeline_params(PATH)
