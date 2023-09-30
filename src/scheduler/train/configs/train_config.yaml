@@ -1,6 +1,6 @@
 output_predictions: "data/predictions/predictions.csv"
-output_losses: "models/losses.json"
-output_model: "models/model.pkl"
+output_losses: "data/predictions/losses.json"
+output_model: "data/predictions/model.pkl"
 # Parameters
 model_params:
   features:

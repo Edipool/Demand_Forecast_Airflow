@@ -47,6 +47,7 @@ def train(input_dir: str, output_dir: str, config: str):
     # Save losses in dump .json
     with open(training_pipeline_params.output_losses, "w") as file:
         json.dump(losses, file)
+        logger.info("Losses saved successfully!")
     # Serialize model
     logger.info("Saving model...")
     serialize_model(model, training_pipeline_params.output_model)
