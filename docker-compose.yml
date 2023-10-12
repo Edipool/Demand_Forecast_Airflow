@@ -87,6 +87,8 @@ services:
     restart: "no"
     volumes:
       - data-raw:/src/scheduler/download/data/raw
+    depends_on:
+      - ml_base
 
   preprocess:
     build:
@@ -95,6 +97,8 @@ services:
     restart: "no"
     volumes:
       - data-processed:/src/scheduler/preprocess/data/processed
+    depends_on:
+      - ml_base
 
   split:
     build:
@@ -103,6 +107,8 @@ services:
     restart: "no"
     volumes:
       - data-processed:/src/scheduler/preprocess/data/processed
+    depends_on:
+      - ml_base
 
   train:
     build:
@@ -111,6 +117,8 @@ services:
     restart: "no"
     volumes:
       - data-predictions:/src/scheduler/train/data/predictions
+    depends_on:
+      - ml_base
 
   upload:
     build:
@@ -122,6 +130,8 @@ services:
       - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
     volumes:
       - data-predictions:/src/scheduler/upload/data/predictions
+    depends_on:
+      - ml_base
 
 volumes:
   logs:

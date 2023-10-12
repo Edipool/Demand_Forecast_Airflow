@@ -1,0 +1,5 @@
+.git
+.dvc
+.env
+.pytest_cache
+# /data/raw/

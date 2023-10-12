@@ -102,5 +102,5 @@ target/
 /mlruns/
 
 # Data folder
-/src/scheduler/download/data
-/src/scheduler/preprocess/data
+# /src/scheduler/download/data
+# /src/scheduler/preprocess/data
