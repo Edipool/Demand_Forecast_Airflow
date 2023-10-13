@@ -1,7 +1,1 @@
-scikit-learn==1.0.2
-pandas==1.3.0
-numpy==1.21.1
-click
-PyYAML==6.0
-marshmallow-dataclass==8.5.8
-marshmallow==3.17.0
+demand-forecast-source
