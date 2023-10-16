@@ -5,9 +5,9 @@ import sys
 
 import click
 import pandas as pd
-from entities.train_pipeline_params import (TrainingPipelineParams,
+from src_demand_forecast.entities.train_pipeline_params import (TrainingPipelineParams,
                                             read_training_pipeline_params)
-from models.model_fit_predict import (MultiTargetModel, evaluate_model,
+from src_demand_forecast.models.train_model import (MultiTargetModel, evaluate_model,
                                       serialize_model)
 
 logger = logging.getLogger(__name__)

@@ -1,9 +1,10 @@
 import logging
 import os
 import sys
+import pandas as pd
 
 import click
-from make_dataset.make_dataset import read_data, split_train_test
+from src_demand_forecast.data.split_dataset import split_train_test
 
 logger = logging.getLogger(__name__)
 handler = logging.StreamHandler(sys.stdout)
@@ -22,7 +23,7 @@ def split(input_dir: str, output_dir: str, test_days: int):
 
     os.makedirs(output_dir, exist_ok=True)
 
-    df = read_data(os.path.join(input_dir, "features_targets.csv"))
+    df = pd.read_csv(os.path.join(input_dir, "features_targets.csv"))
 
     train, test = split_train_test(df, test_days=int(test_days))
 
