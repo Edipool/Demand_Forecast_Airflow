@@ -3,7 +3,7 @@ import os
 import sys
 import click
 
-from demand_forecast_source.download.download_from_s3 import download_dataset
+from src_demand_forecast.download.download_from_s3 import download_dataset
 
 @click.command("download")
 @click.option("--s3-bucket")

@@ -5,10 +5,10 @@ from datetime import datetime
 
 import click
 import pandas as pd
-from entities.train_pipeline_params import (TrainPipelineParams,
+from src_demand_forecast.entities.train_pipeline_params import (TrainPipelineParams,
                                             read_training_pipeline_params)
-from features.build_sku_by_day import save_sku_demand_by_day, sku_demand_by_day
-from features.build_transformer import (features_and_targets_transformer,
+from src_demand_forecast.features.build_sku_by_day import save_sku_demand_by_day, sku_demand_by_day
+from src_demand_forecast.features.build_transformer import (features_and_targets_transformer,
                                         save_transformed_data)
 
 logger = logging.getLogger(__name__)

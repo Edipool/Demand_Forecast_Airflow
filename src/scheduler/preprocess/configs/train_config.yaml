@@ -4,11 +4,11 @@ input_demand_orders_status: "data/raw/demand_orders_status.csv"
 input_sales: "data/raw/sales.csv"
 input_features: "data/raw/features.csv"
 # Output data
-# output_sku_demand_day: "data/processed/sku_demand_day.csv"
-# output_features_and_targets: "data/processed/features_targets.csv"
+output_sku_demand_day: "data/processed/sku_demand_day.csv"
+output_features_and_targets: "data/processed/features_targets.csv"
 output_losses: "models/losses.json"
 output_model: "models/model.pkl"
-# output_predictions: data/processed/predictions.csv
+output_predictions: "data/processed/predictions.csv"
 # Parameters
 feature_params:
   sku_demand_day:
@@ -35,3 +35,22 @@ feature_params:
     qty_21d_q90: ["qty", 21, "quantile", 90]
 split_params:
   test_days: 30
+model_params:
+  features:
+    ["price",
+    "qty",
+    "qty_7d_avg",
+    "qty_7d_q10",
+    "qty_7d_q50",
+    "qty_7d_q90",
+    "qty_14d_avg",
+    "qty_14d_q10",
+    "qty_14d_q50",
+    "qty_14d_q90",
+    "qty_21d_avg",
+    "qty_21d_q10",
+    "qty_21d_q50",
+    "qty_21d_q90",
+    ]
+  horizons: [7, 14, 21]
+  quantiles: [0.1, 0.5, 0.9]

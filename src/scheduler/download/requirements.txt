@@ -1,1 +1,1 @@
-demand-forecast-source
+src-demand-forecast==1.0.3.39
