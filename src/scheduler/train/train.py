@@ -5,10 +5,11 @@ import sys
 
 import click
 import pandas as pd
-from src_demand_forecast.entities.train_pipeline_params import (TrainingPipelineParams,
+from src_demand_forecast.entities.train_pipeline_params import (TrainPipelineParams,
                                             read_training_pipeline_params)
 from src_demand_forecast.models.train_model import (MultiTargetModel, evaluate_model,
                                       serialize_model)
+
 
 logger = logging.getLogger(__name__)
 handler = logging.StreamHandler(sys.stdout)
@@ -27,7 +28,7 @@ def train(input_dir: str, output_dir: str, config: str):
 
     os.makedirs(output_dir, exist_ok=True)
 
-    training_pipeline_params: TrainingPipelineParams = read_training_pipeline_params(
+    training_pipeline_params: TrainPipelineParams = read_training_pipeline_params(
         config
     )
     dftrain = pd.read_csv(os.path.join(input_dir, "train.csv"))
