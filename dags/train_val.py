@@ -75,7 +75,7 @@ with DAG(
 
     upload = DockerOperator(
         image="upload",
-        command="--output-path data/predictions/{{ ds }}/predictions.csv --s3-bucket regsys  --remote_path predictions/predictions.csv",
+        command="--output-path data/predictions/{{ ds }} --s3-bucket demandforecast  --remote_path predictions/{{ ds }}",
         task_id="upload",
         do_xcom_push=False,
         environment={
@@ -90,6 +90,7 @@ with DAG(
             )
         ],
     )
+
 
     notify = BashOperator(
         task_id="notify", bash_command=f'echo "Model train and validated ... "',
